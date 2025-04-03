@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import * as Sentry from '@sentry/browser';
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -20,9 +21,22 @@ const ContactForm = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      console.log('Submitting contact form:', formData);
+      const response = await fetch('/api/contactForm', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'There was an error sending your message');
+      }
+      
       setSubmitStatus({
         success: true,
         message: 'Thank you! Your message has been sent successfully.'
@@ -34,6 +48,8 @@ const ContactForm = () => {
         message: ''
       });
     } catch (error) {
+      console.error('Error submitting form:', error);
+      Sentry.captureException(error);
       setSubmitStatus({
         success: false,
         message: 'There was an error sending your message. Please try again.'
@@ -132,7 +148,7 @@ const ContactForm = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className={`w-full btn-primary flex justify-center items-center ${isSubmitting ? 'opacity-75 cursor-not-allowed' : ''}`}
+              className={`w-full btn-primary flex justify-center items-center ${isSubmitting ? 'opacity-75 cursor-not-allowed' : ''} cursor-pointer`}
             >
               {isSubmitting ? (
                 <>
