@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ServiceCard from '../common/ServiceCard';
+import ServiceCard from '../components/common/ServiceCard';
 
 const Services = () => {
   const services = [
