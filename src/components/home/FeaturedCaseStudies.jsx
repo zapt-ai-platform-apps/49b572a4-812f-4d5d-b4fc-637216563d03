@@ -7,7 +7,7 @@ const FeaturedCaseStudies = () => {
       title: 'Brand Transformation',
       subtitle: 'Tech Startup',
       description: 'How we helped a tech startup rebrand and achieve 150% increase in user acquisition.',
-      image: 'PLACEHOLDER',
+      image: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
       imageRequest: 'modern tech office with yellow branding elements, high quality',
       color: 'bg-blue-500'
     },
@@ -15,7 +15,7 @@ const FeaturedCaseStudies = () => {
       title: 'Charity Campaign',
       subtitle: 'Hope Foundation',
       description: 'Creating an impactful campaign that raised over $200,000 for a local charity.',
-      image: 'PLACEHOLDER',
+      image: 'https://images.unsplash.com/photo-1593113598332-cd288d649433?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
       imageRequest: 'charity fundraising event with diverse people, high quality',
       color: 'bg-green-500'
     },
@@ -23,7 +23,7 @@ const FeaturedCaseStudies = () => {
       title: 'Market Expansion',
       subtitle: 'Sustainable Products',
       description: 'Strategic marketing plan that helped an eco-friendly brand enter three new markets.',
-      image: 'PLACEHOLDER',
+      image: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1313&q=80',
       imageRequest: 'sustainable product line with eco-friendly packaging, high quality',
       color: 'bg-purple-500'
     }
@@ -31,6 +31,8 @@ const FeaturedCaseStudies = () => {
 
   return (
     <section className="case-studies-section py-20 md:py-32 bg-gray-50 relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_#ffde5922,_transparent_70%)]"></div>
+      
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16 max-w-3xl mx-auto">
           <div className="section-badge inline-block bg-yellow-100 text-yellow-800 px-4 py-1 rounded-full text-sm font-semibold tracking-wide mb-6">

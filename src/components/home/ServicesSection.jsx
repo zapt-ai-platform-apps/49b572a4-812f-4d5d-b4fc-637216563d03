@@ -6,28 +6,33 @@ const ServicesSection = () => {
   const services = [
     {
       title: 'Startup Marketing',
-      description: 'Helping startups build scalable strategies and strong brand foundations.',
+      description: 'Helping startups build scalable strategies and strong brand foundations that drive growth and establish market presence.',
       iconType: 'startup'
     },
     {
       title: 'Identity Creation & Branding',
-      description: 'Crafting memorable brand identities that set you apart.',
+      description: 'Crafting memorable brand identities with custom logos, color schemes, and messaging that capture your essence and connect with your audience.',
       iconType: 'identity'
     },
     {
       title: 'Brand Pulse Checks',
-      description: 'Evaluating your brand\'s health and identifying opportunities for improvement.',
+      description: 'Evaluating your brand\'s current health with comprehensive analysis and providing actionable recommendations for improvement.',
       iconType: 'pulse'
     },
     {
       title: 'Enhanced Brand Analysis',
-      description: 'Assessing your brand\'s current state and providing actionable insights for growth.',
+      description: 'Deep-dive assessment of your brand strategy, market position, and competitive landscape to uncover opportunities for sustainable growth.',
       iconType: 'analysis'
     },
     {
       title: 'Impactful Charity Campaigns',
-      description: 'Producing effective charity campaigns to raise awareness and drive engagement.',
+      description: 'Creating compelling fundraising and awareness campaigns that amplify your charity\'s mission and inspire meaningful support.',
       iconType: 'charity'
+    },
+    {
+      title: 'Strategic Content Marketing',
+      description: 'Developing content strategies that establish authority, build trust with your audience, and drive engagement through valuable, relevant content.',
+      iconType: 'content'
     }
   ];
 
@@ -69,7 +74,15 @@ const ServicesSection = () => {
           ))}
         </div>
         
-        <div className="text-center mt-16 animate-fadeIn">
+        <div className="text-center mt-12 animate-fadeIn">
+          <div className="bg-white p-6 rounded-xl shadow-md max-w-3xl mx-auto mb-10">
+            <h3 className="text-xl font-bold mb-3">Customized Solutions For Every Client</h3>
+            <p className="text-gray-600">
+              Our services can be tailored to your specific needs or combined into comprehensive marketing packages. 
+              Let's discuss how we can best support your brand's journey.
+            </p>
+          </div>
+          
           <Link to="/services" className="btn-secondary inline-block">
             Explore All Services
             <svg className="inline-block ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

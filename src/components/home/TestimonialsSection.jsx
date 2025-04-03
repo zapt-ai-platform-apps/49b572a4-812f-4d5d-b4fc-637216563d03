@@ -10,24 +10,27 @@ const TestimonialsSection = () => {
       author: "Sarah Johnson",
       company: "Tech Innovators Ltd",
       rating: 5,
-      avatar: "PLACEHOLDER",
-      avatarRequest: "professional woman with glasses in business attire"
+      avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80",
+      avatarRequest: "professional woman with glasses in business attire",
+      icon: "chart"
     },
     {
       quote: "Working with the BuzzArketing team was a game-changer for our charity. They helped us communicate our mission more effectively and reach more donors.",
       author: "Michael Chen",
       company: "Hope Foundation",
       rating: 5,
-      avatar: "PLACEHOLDER",
-      avatarRequest: "asian man in professional business attire smiling"
+      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+      avatarRequest: "asian man in professional business attire smiling",
+      icon: "heart"
     },
     {
       quote: "The brand analysis we received provided actionable insights that have had a real impact on our business growth. Highly recommended!",
       author: "Emma Roberts",
       company: "Sustainable Solutions",
       rating: 4,
-      avatar: "PLACEHOLDER",
-      avatarRequest: "professional woman with short hair in business casual attire"
+      avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=761&q=80",
+      avatarRequest: "professional woman with short hair in business casual attire",
+      icon: "leaf"
     }
   ];
 
@@ -70,13 +73,14 @@ const TestimonialsSection = () => {
                   rating={testimonial.rating}
                   avatar={testimonial.avatar}
                   avatarRequest={testimonial.avatarRequest}
+                  icon={testimonial.icon}
                 />
               </div>
             ))}
           </div>
           
           {/* Mobile testimonial slider */}
-          <div className="md:hidden relative h-[400px] overflow-hidden">
+          <div className="md:hidden relative h-[420px] overflow-hidden">
             <div 
               className="transition-transform duration-500 ease-in-out h-full flex"
               style={{ transform: `translateX(-${activeSlide * 100}%)` }}
@@ -90,6 +94,7 @@ const TestimonialsSection = () => {
                     rating={testimonial.rating}
                     avatar={testimonial.avatar}
                     avatarRequest={testimonial.avatarRequest}
+                    icon={testimonial.icon}
                   />
                 </div>
               ))}
@@ -102,7 +107,7 @@ const TestimonialsSection = () => {
                   onClick={() => setActiveSlide(index)}
                   className={`w-3 h-3 rounded-full transition-colors ${
                     index === activeSlide ? 'bg-yellow-500' : 'bg-gray-300'
-                  }`}
+                  } cursor-pointer`}
                   aria-label={`Go to testimonial ${index + 1}`}
                 />
               ))}

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TestimonialCard = ({ quote, author, company, rating, avatar, avatarRequest }) => {
+const TestimonialCard = ({ quote, author, company, rating, avatar, avatarRequest, icon }) => {
   const renderStars = () => {
     const stars = [];
     for (let i = 0; i < 5; i++) {
@@ -19,10 +19,45 @@ const TestimonialCard = ({ quote, author, company, rating, avatar, avatarRequest
     return stars;
   };
 
+  const renderIcon = () => {
+    if (!icon) return null;
+    
+    switch(icon) {
+      case 'chart':
+        return (
+          <div className="absolute -top-3 -right-3 w-16 h-16 flex items-center justify-center">
+            <svg className="w-10 h-10 text-yellow-400 opacity-30" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 13H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-9a1 1 0 0 0-1-1Zm0-12H2a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Zm14 6h-6a1 1 0 0 0-1 1v15a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1Zm0-6h-6a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"/>
+            </svg>
+          </div>
+        );
+      case 'heart':
+        return (
+          <div className="absolute -top-3 -right-3 w-16 h-16 flex items-center justify-center">
+            <svg className="w-10 h-10 text-yellow-400 opacity-30" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+          </div>
+        );
+      case 'leaf':
+        return (
+          <div className="absolute -top-3 -right-3 w-16 h-16 flex items-center justify-center">
+            <svg className="w-10 h-10 text-yellow-400 opacity-30" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21 3a1 1 0 0 0-.5-.87 1 1 0 0 0-1 0C17.83 3.17 13.62 5 10.5 5a9.09 9.09 0 0 1-4.5-1V3a1 1 0 0 0-2 0v16a1 1 0 0 0 .5.87 1 1 0 0 0 1 0A15.9 15.9 0 0 1 10.5 18a16.9 16.9 0 0 1 5 .81 1 1 0 0 0 .5.19 1 1 0 0 0 .5-.19A15.9 15.9 0 0 1 21.5 18 1 1 0 0 0 22 17V4a1 1 0 0 0-1-1Z"/>
+            </svg>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="testimonial-card bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 h-full flex flex-col relative">
       <div className="absolute -top-6 -left-6 w-16 h-16 bg-yellow-400 rounded-full opacity-10"></div>
       <div className="absolute -bottom-6 -right-6 w-16 h-16 bg-yellow-400 rounded-full opacity-10"></div>
+      
+      {renderIcon()}
       
       <div className="mb-6 flex justify-between items-center">
         <div className="flex">
