@@ -6,13 +6,44 @@
   --color-primary: #ffde59;
   --color-secondary: #1a1a1a;
   --color-light: #ffffff;
+  --scrollbar-thumb: #ffde59;
+  --scrollbar-track: #f1f1f1;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   color: var(--color-secondary);
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #e6c73d;
 }
 
 @layer components {
@@ -21,11 +52,23 @@ body {
   }
   
   .btn-primary {
-    @apply bg-yellow-400 hover:bg-yellow-500 text-black font-medium py-3 px-6 rounded-md transition-colors duration-300 cursor-pointer;
+    @apply bg-yellow-400 hover:bg-yellow-500 text-black font-medium py-3 px-6 rounded-md transition-all duration-300 cursor-pointer border-2 border-yellow-400 shadow-md hover:shadow-lg transform hover:translate-y-[-2px];
   }
   
   .btn-secondary {
-    @apply bg-black hover:bg-gray-800 text-white font-medium py-3 px-6 rounded-md transition-colors duration-300 cursor-pointer;
+    @apply bg-black hover:bg-gray-800 text-white font-medium py-3 px-6 rounded-md transition-all duration-300 cursor-pointer border-2 border-black shadow-md hover:shadow-lg transform hover:translate-y-[-2px];
+  }
+  
+  .btn-outline-white {
+    @apply bg-transparent hover:bg-white/10 text-white font-medium py-3 px-6 rounded-md transition-all duration-300 cursor-pointer border-2 border-white shadow-md hover:shadow-lg transform hover:translate-y-[-2px];
+  }
+  
+  .btn-outline-black {
+    @apply bg-transparent hover:bg-black/5 text-black font-medium py-3 px-6 rounded-md transition-all duration-300 cursor-pointer border-2 border-black shadow-md hover:shadow-lg transform hover:translate-y-[-2px];
+  }
+  
+  .btn-black {
+    @apply bg-black hover:bg-gray-800 text-white font-medium py-3 px-6 rounded-md transition-all duration-300 cursor-pointer border-2 border-black shadow-md hover:shadow-lg transform hover:translate-y-[-2px];
   }
   
   .heading-xl {
@@ -33,7 +76,7 @@ body {
   }
   
   .heading-lg {
-    @apply text-3xl md:text-4xl font-bold leading-tight;
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold leading-tight;
   }
   
   .heading-md {
@@ -43,4 +86,69 @@ body {
   .heading-sm {
     @apply text-xl md:text-2xl font-semibold leading-tight;
   }
+  
+  .hero-pattern {
+    background-image: radial-gradient(rgba(255, 222, 89, 0.1) 2px, transparent 2px);
+    background-size: 30px 30px;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideLeft {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.animate-slideUp {
+  animation: slideUp 0.8s ease-out forwards;
+}
+
+.animate-slideDown {
+  animation: slideDown 0.8s ease-out forwards;
+}
+
+.animate-slideLeft {
+  animation: slideLeft 0.8s ease-out forwards;
+}
+
+.animate-slideRight {
+  animation: slideRight 0.8s ease-out forwards;
+}
+
+.animate-fadeUp {
+  animation: fadeUp 0.8s ease-out forwards;
+}
+
+/* Landing Page Styles */
+.landing-page section {
+  position: relative;
 }

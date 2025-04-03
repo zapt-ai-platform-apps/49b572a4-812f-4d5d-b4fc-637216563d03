@@ -4,151 +4,152 @@ const ContactForm = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    message: ''
+    company: '',
+    message: '',
   });
   
-  const [formStatus, setFormStatus] = useState({
-    message: '',
-    isError: false,
-    isSubmitting: false
-  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
     
-    // Validation
-    if (!formData.name || !formData.email || !formData.message) {
-      setFormStatus({
-        message: 'Please fill in all fields',
-        isError: true,
-        isSubmitting: false
-      });
-      return;
-    }
-    
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      setFormStatus({
-        message: 'Please enter a valid email address',
-        isError: true,
-        isSubmitting: false
-      });
-      return;
-    }
-    
-    setFormStatus({
-      message: '',
-      isError: false,
-      isSubmitting: true
-    });
-    
-    // Simulating form submission - in a real app, you would send to backend
+    // Simulate form submission
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      setFormStatus({
-        message: 'Thank you for your message! We\'ll get back to you soon.',
-        isError: false,
-        isSubmitting: false
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      setSubmitStatus({
+        success: true,
+        message: 'Thank you! Your message has been sent successfully.'
       });
-      
-      // Reset form
       setFormData({
         name: '',
         email: '',
+        company: '',
         message: ''
       });
     } catch (error) {
-      console.error('Error submitting form:', error);
-      setFormStatus({
-        message: 'Failed to send message. Please try again later.',
-        isError: true,
-        isSubmitting: false
+      setSubmitStatus({
+        success: false,
+        message: 'There was an error sending your message. Please try again.'
       });
+    } finally {
+      setIsSubmitting(false);
+      // Reset status after 5 seconds
+      setTimeout(() => setSubmitStatus(null), 5000);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div>
-        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-          Name
-        </label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          className="w-full px-4 py-3 rounded-md border border-gray-300 box-border focus:outline-none focus:ring-2 focus:ring-yellow-500"
-          placeholder="Your name"
-        />
-      </div>
-      
-      <div>
-        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-          Email
-        </label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          className="w-full px-4 py-3 rounded-md border border-gray-300 box-border focus:outline-none focus:ring-2 focus:ring-yellow-500"
-          placeholder="Your email address"
-        />
-      </div>
-      
-      <div>
-        <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-          Message
-        </label>
-        <textarea
-          id="message"
-          name="message"
-          value={formData.message}
-          onChange={handleChange}
-          rows="5"
-          className="w-full px-4 py-3 rounded-md border border-gray-300 box-border focus:outline-none focus:ring-2 focus:ring-yellow-500"
-          placeholder="How can we help you?"
-        ></textarea>
-      </div>
-      
-      {formStatus.message && (
-        <div className={`p-3 rounded-md ${formStatus.isError ? 'bg-red-50 text-red-800' : 'bg-green-50 text-green-800'}`}>
-          {formStatus.message}
+    <div className="contact-form-container bg-white rounded-xl shadow-lg p-8 transform transition-all duration-300 hover:shadow-xl">
+      {submitStatus ? (
+        <div className={`text-center p-8 ${submitStatus.success ? 'text-green-600' : 'text-red-600'}`}>
+          <div className="mb-4">
+            {submitStatus.success ? (
+              <svg className="w-16 h-16 mx-auto text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            ) : (
+              <svg className="w-16 h-16 mx-auto text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            )}
+          </div>
+          <h3 className="text-xl font-bold mb-2">{submitStatus.success ? 'Message Sent!' : 'Error'}</h3>
+          <p>{submitStatus.message}</p>
+          {!submitStatus.success && (
+            <button 
+              onClick={() => setSubmitStatus(null)}
+              className="mt-4 bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md transition-colors duration-300 cursor-pointer"
+            >
+              Try Again
+            </button>
+          )}
         </div>
+      ) : (
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <label htmlFor="name" className="block text-gray-700 font-medium mb-2">Your Name *</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-3 rounded-md border border-gray-300 focus:border-yellow-500 focus:ring focus:ring-yellow-200 focus:ring-opacity-50 transition-colors duration-300 box-border"
+              placeholder="John Doe"
+            />
+          </div>
+          
+          <div>
+            <label htmlFor="email" className="block text-gray-700 font-medium mb-2">Email Address *</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-3 rounded-md border border-gray-300 focus:border-yellow-500 focus:ring focus:ring-yellow-200 focus:ring-opacity-50 transition-colors duration-300 box-border"
+              placeholder="john@example.com"
+            />
+          </div>
+          
+          <div>
+            <label htmlFor="company" className="block text-gray-700 font-medium mb-2">Company / Organization</label>
+            <input
+              type="text"
+              id="company"
+              name="company"
+              value={formData.company}
+              onChange={handleChange}
+              className="w-full px-4 py-3 rounded-md border border-gray-300 focus:border-yellow-500 focus:ring focus:ring-yellow-200 focus:ring-opacity-50 transition-colors duration-300 box-border"
+              placeholder="Your Company"
+            />
+          </div>
+          
+          <div>
+            <label htmlFor="message" className="block text-gray-700 font-medium mb-2">Your Message *</label>
+            <textarea
+              id="message"
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+              required
+              rows="5"
+              className="w-full px-4 py-3 rounded-md border border-gray-300 focus:border-yellow-500 focus:ring focus:ring-yellow-200 focus:ring-opacity-50 transition-colors duration-300 box-border"
+              placeholder="How can we help you?"
+            ></textarea>
+          </div>
+          
+          <div>
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className={`w-full btn-primary flex justify-center items-center ${isSubmitting ? 'opacity-75 cursor-not-allowed' : ''}`}
+            >
+              {isSubmitting ? (
+                <>
+                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Sending...
+                </>
+              ) : (
+                'Send Message'
+              )}
+            </button>
+          </div>
+        </form>
       )}
-      
-      <button
-        type="submit"
-        disabled={formStatus.isSubmitting}
-        className="btn-primary w-full flex items-center justify-center"
-      >
-        {formStatus.isSubmitting ? (
-          <>
-            <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            Sending...
-          </>
-        ) : (
-          'Send Message'
-        )}
-      </button>
-    </form>
+    </div>
   );
 };
 
