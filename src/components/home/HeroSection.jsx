@@ -36,10 +36,6 @@ const HeroSection = () => {
       
       <div className="container relative z-10 mx-auto px-4 py-20 md:py-32">
         <div className="hero-content max-w-4xl mx-auto">
-          <div className="hero-badge mb-6 inline-block bg-yellow-400 text-black px-4 py-1 rounded-full text-sm font-semibold tracking-wide animate-fadeIn">
-            Strategic Brand Marketing
-          </div>
-          
           <h1 className="hero-title text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight animate-slideUp">
             Building Brands That <br/>
             Create <span className="text-yellow-400 relative inline-block animate-pulse">
@@ -50,19 +46,12 @@ const HeroSection = () => {
             </span>
           </h1>
           
-          <p className="hero-description text-xl md:text-2xl text-gray-300 mb-10 max-w-3xl animate-fadeIn opacity-90">
-            We help businesses and charities build authentic, sustainable brands that leave a lasting impression and drive meaningful growth.
-          </p>
-          
-          <div className="hero-actions flex flex-col sm:flex-row gap-4 animate-fadeIn">
+          <div className="hero-actions animate-fadeIn">
             <Link to="/contact" className="btn-primary text-center text-lg">
               Let's Talk
               <svg className="inline-block ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
               </svg>
-            </Link>
-            <Link to="/services" className="btn-outline-white text-center text-lg">
-              Explore Services
             </Link>
           </div>
         </div>

@@ -5,7 +5,6 @@ const ContactForm = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    company: '',
     message: '',
   });
   
@@ -44,7 +43,6 @@ const ContactForm = () => {
       setFormData({
         name: '',
         email: '',
-        company: '',
         message: ''
       });
     } catch (error) {
@@ -114,19 +112,6 @@ const ContactForm = () => {
               required
               className="w-full px-4 py-3 rounded-md border border-gray-300 focus:border-yellow-500 focus:ring focus:ring-yellow-200 focus:ring-opacity-50 transition-colors duration-300 box-border"
               placeholder="john@example.com"
-            />
-          </div>
-          
-          <div>
-            <label htmlFor="company" className="block text-gray-700 font-medium mb-2">Company / Organization</label>
-            <input
-              type="text"
-              id="company"
-              name="company"
-              value={formData.company}
-              onChange={handleChange}
-              className="w-full px-4 py-3 rounded-md border border-gray-300 focus:border-yellow-500 focus:ring focus:ring-yellow-200 focus:ring-opacity-50 transition-colors duration-300 box-border"
-              placeholder="Your Company"
             />
           </div>
           

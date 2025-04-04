@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { name, email, company, message } = req.body;
+    const { name, email, message } = req.body;
     
     if (!name || !email || !message) {
       return res.status(400).json({ error: 'Name, email, and message are required' });
@@ -26,7 +26,6 @@ export default async function handler(req, res) {
         <h2>New Contact Form Submission</h2>
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Company:</strong> ${company || 'Not provided'}</p>
         <p><strong>Message:</strong></p>
         <p>${message}</p>
       `,

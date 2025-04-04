@@ -49,17 +49,12 @@ const TestimonialsSection = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16 max-w-3xl mx-auto">
           <div className="section-badge inline-block bg-yellow-100 text-yellow-800 px-4 py-1 rounded-full text-sm font-semibold tracking-wide mb-6">
-            Testimonials
+            Testimonials & Trust Signals
           </div>
           
           <h2 className="heading-lg mb-6 animate-slideUp">
             What Our Clients <span className="text-yellow-500">Say About Us</span>
           </h2>
-          
-          <p className="text-lg text-gray-700 animate-fadeIn">
-            Don't just take our word for it. Here's what our clients have to say about their
-            experience working with BuzzArketing.
-          </p>
         </div>
         
         <div className="testimonials-slider relative">

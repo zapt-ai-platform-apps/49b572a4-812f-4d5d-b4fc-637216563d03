@@ -11,9 +11,6 @@ const About = () => {
         <div className="container relative z-10 text-center">
           <div className="max-w-3xl mx-auto">
             <h1 className="heading-xl mb-6 animate-slideUp">About Us</h1>
-            <p className="text-lg md:text-xl text-gray-300 animate-fadeIn">
-              Get to know the team behind BuzzArketing and our approach to building impactful brands.
-            </p>
           </div>
         </div>
       </section>
@@ -41,11 +38,6 @@ const About = () => {
                 </p>
               </div>
             </div>
-            <div className="my-12 bg-gray-50 p-8 rounded-lg border-l-4 border-yellow-400">
-              <p className="text-xl font-medium italic text-gray-800">
-                "We don't just create marketing; we build sustainable brand foundations that drive long-term success."
-              </p>
-            </div>
           </div>
         </div>
       </section>
@@ -70,7 +62,7 @@ const About = () => {
                 </div>
                 <h3 className="text-xl font-semibold mb-4">Authenticity</h3>
                 <p className="text-gray-700">
-                  We craft strategies that reflect your brand's true values, ensuring every campaign feels genuine and resonates with your audience's expectations.
+                  We craft strategies that reflect your brand's true values, ensuring every campaign feels genuine.
                 </p>
               </div>
               
@@ -82,7 +74,7 @@ const About = () => {
                 </div>
                 <h3 className="text-xl font-semibold mb-4">Sustainability</h3>
                 <p className="text-gray-700">
-                  We design long-term strategies that deliver ongoing success and evolve with your business, creating a foundation for continued growth.
+                  We design long-term strategies that deliver ongoing success and evolve with your business.
                 </p>
               </div>
               
@@ -94,63 +86,9 @@ const About = () => {
                 </div>
                 <h3 className="text-xl font-semibold mb-4">Strategic Insight</h3>
                 <p className="text-gray-700">
-                  We fuse data-driven marketing with a deep understanding of consumer behavior to create campaigns that resonate and deliver measurable results.
+                  We fuse data-driven marketing with a deep understanding of consumer behavior to create campaigns that resonate and deliver results.
                 </p>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Team Section */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="container">
-          <h2 className="heading-lg mb-12 text-center">Meet Our Team</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            <div className="team-member text-center">
-              <div className="relative mb-6 mx-auto w-48 h-48 overflow-hidden rounded-full">
-                <img 
-                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" 
-                  alt="Jessica Williams" 
-                  className="w-full h-full object-cover"
-                  data-image-request="professional female marketing executive portrait"
-                />
-                <div className="absolute inset-0 bg-yellow-400 mix-blend-multiply opacity-0 hover:opacity-20 transition-opacity duration-300"></div>
-              </div>
-              <h3 className="text-xl font-bold mb-1">Jessica Williams</h3>
-              <p className="text-yellow-500 font-medium mb-3">Founder & Strategy Director</p>
-              <p className="text-gray-600">10+ years experience in brand strategy and marketing psychology.</p>
-            </div>
-            
-            <div className="team-member text-center">
-              <div className="relative mb-6 mx-auto w-48 h-48 overflow-hidden rounded-full">
-                <img 
-                  src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" 
-                  alt="Michael Roberts" 
-                  className="w-full h-full object-cover"
-                  data-image-request="professional male marketing director portrait"
-                />
-                <div className="absolute inset-0 bg-yellow-400 mix-blend-multiply opacity-0 hover:opacity-20 transition-opacity duration-300"></div>
-              </div>
-              <h3 className="text-xl font-bold mb-1">Michael Roberts</h3>
-              <p className="text-yellow-500 font-medium mb-3">Creative Director</p>
-              <p className="text-gray-600">Award-winning creative with expertise in brand identity development.</p>
-            </div>
-            
-            <div className="team-member text-center">
-              <div className="relative mb-6 mx-auto w-48 h-48 overflow-hidden rounded-full">
-                <img 
-                  src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=761&q=80" 
-                  alt="Sarah Chen" 
-                  className="w-full h-full object-cover"
-                  data-image-request="professional female data analyst portrait"
-                />
-                <div className="absolute inset-0 bg-yellow-400 mix-blend-multiply opacity-0 hover:opacity-20 transition-opacity duration-300"></div>
-              </div>
-              <h3 className="text-xl font-bold mb-1">Sarah Chen</h3>
-              <p className="text-yellow-500 font-medium mb-3">Analytics Director</p>
-              <p className="text-gray-600">Data specialist focused on turning insights into strategic action.</p>
             </div>
           </div>
         </div>
@@ -166,7 +104,7 @@ const About = () => {
             Let's work together to create a brand identity that authentically represents your values and resonates with your audience.
           </p>
           <Link to="/contact" className="btn-secondary inline-block">
-            Get in Touch
+            Let's Talk
             <svg className="inline-block ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
             </svg>
