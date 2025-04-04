@@ -1,5 +1,6 @@
 import React from 'react';
 import ContactForm from '../components/forms/ContactForm';
+import ExternalReviewsDisplay from '../components/common/ExternalReviewsDisplay';
 
 const Contact = () => {
   return (
@@ -66,6 +67,10 @@ const Contact = () => {
                       Google Maps Reviews
                     </a>
                   </div>
+                </div>
+                
+                <div className="mt-8">
+                  <ExternalReviewsDisplay />
                 </div>
               </div>
               

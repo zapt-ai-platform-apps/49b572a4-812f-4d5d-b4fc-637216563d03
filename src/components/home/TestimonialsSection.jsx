@@ -1,46 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import TestimonialCard from '../common/TestimonialCard';
+import ExternalReviewsSlider from './ExternalReviewsSlider';
 
 const TestimonialsSection = () => {
-  const [activeSlide, setActiveSlide] = useState(0);
-  
-  const testimonials = [
-    {
-      quote: "BuzzArketing transformed our approach to branding. Their strategic insights helped us establish a cohesive identity that resonates with our audience.",
-      author: "Sarah Johnson",
-      company: "Tech Innovators Ltd",
-      rating: 5,
-      avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80",
-      avatarRequest: "professional woman with glasses in business attire",
-      icon: "chart"
-    },
-    {
-      quote: "Working with the BuzzArketing team was a game-changer for our charity. They helped us communicate our mission more effectively and reach more donors.",
-      author: "Michael Chen",
-      company: "Hope Foundation",
-      rating: 5,
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
-      avatarRequest: "asian man in professional business attire smiling",
-      icon: "heart"
-    },
-    {
-      quote: "The brand analysis we received provided actionable insights that have had a real impact on our business growth. Highly recommended!",
-      author: "Emma Roberts",
-      company: "Sustainable Solutions",
-      rating: 4,
-      avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=761&q=80",
-      avatarRequest: "professional woman with short hair in business casual attire",
-      icon: "leaf"
-    }
-  ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveSlide((prev) => (prev + 1) % testimonials.length);
-    }, 6000);
-    return () => clearInterval(interval);
-  }, [testimonials.length]);
-
+  // External review platforms
   return (
     <section className="testimonials-section py-20 md:py-32 bg-white relative overflow-hidden">
       <div className="absolute right-0 top-0 w-96 h-96 bg-yellow-400 rounded-full opacity-5 transform translate-x-1/2 -translate-y-1/2"></div>
@@ -57,58 +20,8 @@ const TestimonialsSection = () => {
           </h2>
         </div>
         
-        <div className="testimonials-slider relative">
-          <div className="hidden md:grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <div key={index} className="animate-fadeUp" style={{ animationDelay: `${index * 0.1}s` }}>
-                <TestimonialCard 
-                  quote={testimonial.quote}
-                  author={testimonial.author}
-                  company={testimonial.company}
-                  rating={testimonial.rating}
-                  avatar={testimonial.avatar}
-                  avatarRequest={testimonial.avatarRequest}
-                  icon={testimonial.icon}
-                />
-              </div>
-            ))}
-          </div>
-          
-          {/* Mobile testimonial slider */}
-          <div className="md:hidden relative h-[420px] overflow-hidden">
-            <div 
-              className="transition-transform duration-500 ease-in-out h-full flex"
-              style={{ transform: `translateX(-${activeSlide * 100}%)` }}
-            >
-              {testimonials.map((testimonial, index) => (
-                <div key={index} className="w-full h-full flex-shrink-0 px-4">
-                  <TestimonialCard 
-                    quote={testimonial.quote}
-                    author={testimonial.author}
-                    company={testimonial.company}
-                    rating={testimonial.rating}
-                    avatar={testimonial.avatar}
-                    avatarRequest={testimonial.avatarRequest}
-                    icon={testimonial.icon}
-                  />
-                </div>
-              ))}
-            </div>
-            
-            <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
-              {testimonials.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setActiveSlide(index)}
-                  className={`w-3 h-3 rounded-full transition-colors ${
-                    index === activeSlide ? 'bg-yellow-500' : 'bg-gray-300'
-                  } cursor-pointer`}
-                  aria-label={`Go to testimonial ${index + 1}`}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
+        {/* External reviews slider component */}
+        <ExternalReviewsSlider />
         
         <div className="mt-12 flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 animate-fadeIn">
           <a 
