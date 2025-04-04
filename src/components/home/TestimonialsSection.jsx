@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import TestimonialCard from '../common/TestimonialCard';
+import React from 'react';
 import ExternalReviewsSlider from './ExternalReviewsSlider';
 
 const TestimonialsSection = () => {

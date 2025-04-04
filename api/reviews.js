@@ -19,14 +19,8 @@ export default async function handler(req, res) {
     const googleReviews = await fetchGoogleReviews();
     console.log(`Successfully fetched ${googleReviews.length} Google reviews`);
 
-    // Fetch Trustpilot reviews
-    const trustpilotReviews = await fetchTrustpilotReviews();
-    console.log(`Successfully fetched ${trustpilotReviews.length} Trustpilot reviews`);
-
-    // Combine and return all reviews
-    const allReviews = [...googleReviews, ...trustpilotReviews];
-    
-    res.status(200).json({ success: true, reviews: allReviews });
+    // Return only Google reviews
+    res.status(200).json({ success: true, reviews: googleReviews });
   } catch (error) {
     console.error('Error fetching reviews:', error);
     Sentry.captureException(error);
@@ -80,75 +74,5 @@ async function fetchGoogleReviews() {
     Sentry.captureException(error);
     // Return empty array to avoid breaking the app
     return [];
-  }
-}
-
-async function fetchTrustpilotReviews() {
-  try {
-    if (!process.env.TRUSTPILOT_API_KEY) {
-      throw new Error('Trustpilot API key is missing');
-    }
-    
-    if (!process.env.TRUSTPILOT_BUSINESS_ID) {
-      throw new Error('Trustpilot Business ID is missing');
-    }
-    
-    // Fetch reviews from Trustpilot API
-    const trustpilotUrl = `https://api.trustpilot.com/v1/business-units/${process.env.TRUSTPILOT_BUSINESS_ID}/reviews?perPage=10`;
-    
-    const response = await fetch(trustpilotUrl, {
-      headers: {
-        'Authorization': `ApiKey ${process.env.TRUSTPILOT_API_KEY}`,
-        'Content-Type': 'application/json'
-      }
-    });
-    
-    if (!response.ok) {
-      throw new Error(`Trustpilot API responded with status: ${response.status}`);
-    }
-    
-    const data = await response.json();
-    
-    if (!data.reviews?.length) {
-      console.log('No Trustpilot reviews found');
-      return [];
-    }
-    
-    // Format Trustpilot reviews to match our application's structure
-    return data.reviews.map(review => ({
-      platform: 'trustpilot',
-      author: review.consumer.displayName,
-      rating: review.stars,
-      date: formatDate(review.createdAt),
-      text: review.text,
-      avatar: review.consumer.profileUrl || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(review.consumer.displayName),
-      avatarRequest: `headshot of person named ${review.consumer.displayName}`,
-      time: new Date(review.createdAt).getTime() / 1000,
-    }));
-  } catch (error) {
-    console.error('Error fetching Trustpilot reviews:', error);
-    Sentry.captureException(error);
-    // Return empty array to avoid breaking the app
-    return [];
-  }
-}
-
-function formatDate(dateString) {
-  const date = new Date(dateString);
-  const now = new Date();
-  const diffTime = Math.abs(now - date);
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  
-  if (diffDays < 7) {
-    return `${diffDays} days ago`;
-  } else if (diffDays < 30) {
-    const weeks = Math.floor(diffDays / 7);
-    return `${weeks} ${weeks === 1 ? 'week' : 'weeks'} ago`;
-  } else if (diffDays < 365) {
-    const months = Math.floor(diffDays / 30);
-    return `${months} ${months === 1 ? 'month' : 'months'} ago`;
-  } else {
-    const years = Math.floor(diffDays / 365);
-    return `${years} ${years === 1 ? 'year' : 'years'} ago`;
   }
 }
