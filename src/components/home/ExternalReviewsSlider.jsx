@@ -1,67 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ExternalReviewCard } from './ExternalReviewCard';
+import { useReviews } from '../../hooks/useReviews';
 
 const ExternalReviewsSlider = () => {
   const [activeSlide, setActiveSlide] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const sliderRef = useRef(null);
   const autoPlayTimerRef = useRef(null);
-
-  // Sample Google Maps reviews
-  const googleReviews = [
-    {
-      platform: 'google',
-      author: 'David Thompson',
-      rating: 5,
-      date: '2 months ago',
-      text: "BuzzArketing completely transformed our brand identity. Their strategic approach to marketing helped us stand out in a competitive industry. The team's creativity and attention to detail exceeded our expectations.",
-      avatar: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80",
-      avatarRequest: "professional looking business man with beard"
-    },
-    {
-      platform: 'google',
-      author: 'Jennifer Williams',
-      rating: 5,
-      date: '1 month ago',
-      text: "Working with BuzzArketing was a game-changer for our business. They understood our needs perfectly and delivered a marketing strategy that generated real results. Highly recommend their services!",
-      avatar: "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80",
-      avatarRequest: "professional woman with blonde hair smiling"
-    },
-  ];
-
-  // Sample Trustpilot reviews
-  const trustpilotReviews = [
-    {
-      platform: 'trustpilot',
-      author: 'Alex Richardson',
-      rating: 5,
-      date: '3 weeks ago',
-      text: "The team at BuzzArketing provided exceptional service. They were responsive, creative, and delivered a comprehensive marketing strategy that perfectly aligned with our brand values. The results speak for themselves!",
-      avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80",
-      avatarRequest: "middle aged man with glasses professional"
-    },
-    {
-      platform: 'trustpilot',
-      author: 'Samantha Lee',
-      rating: 4,
-      date: '1 month ago',
-      text: "BuzzArketing helped us redefine our brand strategy. They have a talented team that really understands the digital marketing landscape. Great communication throughout the project and strong results.",
-      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80",
-      avatarRequest: "asian woman professional headshot"
-    },
-  ];
-
-  // Combine reviews
-  const allReviews = [...googleReviews, ...trustpilotReviews];
+  const { reviews, isLoading, error } = useReviews();
 
   const resetAutoplayTimer = () => {
     if (autoPlayTimerRef.current) {
       clearInterval(autoPlayTimerRef.current);
     }
     
-    if (isAutoPlaying) {
+    if (isAutoPlaying && reviews.length > 0) {
       autoPlayTimerRef.current = setInterval(() => {
-        setActiveSlide(prev => (prev + 1) % allReviews.length);
+        setActiveSlide(prev => (prev + 1) % reviews.length);
       }, 5000);
     }
   };
@@ -74,18 +29,22 @@ const ExternalReviewsSlider = () => {
         clearInterval(autoPlayTimerRef.current);
       }
     };
-  }, [isAutoPlaying, allReviews.length]);
+  }, [isAutoPlaying, reviews.length]);
 
   useEffect(() => {
     resetAutoplayTimer();
   }, [activeSlide]);
 
   const handleNext = () => {
-    setActiveSlide(prev => (prev + 1) % allReviews.length);
+    if (reviews.length > 0) {
+      setActiveSlide(prev => (prev + 1) % reviews.length);
+    }
   };
 
   const handlePrev = () => {
-    setActiveSlide(prev => (prev - 1 + allReviews.length) % allReviews.length);
+    if (reviews.length > 0) {
+      setActiveSlide(prev => (prev - 1 + reviews.length) % reviews.length);
+    }
   };
 
   const handleSlideSelect = (index) => {
@@ -95,6 +54,49 @@ const ExternalReviewsSlider = () => {
   const toggleAutoPlay = () => {
     setIsAutoPlaying(prev => !prev);
   };
+
+  if (isLoading) {
+    return (
+      <div className="relative mx-auto max-w-6xl">
+        <div className="flex justify-center py-16">
+          <div className="animate-pulse space-y-6 w-full">
+            <div className="flex space-x-4 justify-center">
+              {[1, 2].map(i => (
+                <div key={i} className="bg-gray-200 h-64 w-full max-w-md rounded-lg"></div>
+              ))}
+            </div>
+            <div className="flex justify-center space-x-2">
+              {[1, 2, 3, 4].map(i => (
+                <div key={i} className="bg-gray-200 h-3 w-3 rounded-full"></div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="relative mx-auto max-w-6xl">
+        <div className="text-center py-16">
+          <div className="bg-red-50 p-4 rounded-lg text-red-500 inline-block">
+            <p>Unable to load reviews. Please try again later.</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (reviews.length === 0) {
+    return (
+      <div className="relative mx-auto max-w-6xl">
+        <div className="text-center py-16">
+          <p className="text-gray-500">No reviews available yet.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative mx-auto max-w-6xl">
@@ -109,15 +111,15 @@ const ExternalReviewsSlider = () => {
           <div 
             className="flex transition-transform duration-500 ease-in-out"
             style={{ 
-              transform: `translateX(-${activeSlide * (100/allReviews.length)}%)`,
-              width: `${allReviews.length * 100}%`
+              transform: `translateX(-${activeSlide * (100/reviews.length)}%)`,
+              width: `${reviews.length * 100}%`
             }}
           >
-            {allReviews.map((review, index) => (
+            {reviews.map((review, index) => (
               <div 
                 key={`${review.platform}-${index}`} 
                 className="px-2"
-                style={{ width: `${100/allReviews.length}%` }}
+                style={{ width: `${100/reviews.length}%` }}
               >
                 <ExternalReviewCard review={review} />
               </div>
@@ -133,7 +135,7 @@ const ExternalReviewsSlider = () => {
             className="flex transition-transform duration-500 ease-in-out h-full"
             style={{ transform: `translateX(-${activeSlide * 100}%)` }}
           >
-            {allReviews.map((review, index) => (
+            {reviews.map((review, index) => (
               <div 
                 key={`${review.platform}-${index}`} 
                 className="w-full flex-shrink-0"
@@ -168,13 +170,13 @@ const ExternalReviewsSlider = () => {
 
       {/* Pagination dots */}
       <div className="flex justify-center mt-6 gap-2">
-        {allReviews.map((_, index) => (
+        {reviews.map((_, index) => (
           <button
             key={index}
             onClick={() => handleSlideSelect(index)}
-            className={`w-3 h-3 rounded-full transition-colors ${
+            className={`w-3 h-3 rounded-full transition-colors cursor-pointer ${
               index === activeSlide ? 'bg-yellow-500' : 'bg-gray-300'
-            } focus:outline-none cursor-pointer`}
+            } focus:outline-none`}
             aria-label={`Go to review ${index + 1}`}
           />
         ))}

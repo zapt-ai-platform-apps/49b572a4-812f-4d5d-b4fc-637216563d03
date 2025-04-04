@@ -1,4 +1,4 @@
-import * as Sentry from "@sentry/node";
+import * as Sentry from '@sentry/node';
 
 Sentry.init({
   dsn: process.env.VITE_PUBLIC_SENTRY_DSN,
@@ -6,9 +6,9 @@ Sentry.init({
   initialScope: {
     tags: {
       type: 'backend',
-      projectId: process.env.VITE_PUBLIC_APP_ID
-    }
-  }
+      projectId: process.env.VITE_PUBLIC_APP_ID,
+    },
+  },
 });
 
 export default Sentry;

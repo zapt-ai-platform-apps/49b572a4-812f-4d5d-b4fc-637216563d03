@@ -1,37 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import { useReviews } from '../../hooks/useReviews';
 
 const ExternalReviewsDisplay = () => {
   const [activeReviewIndex, setActiveReviewIndex] = useState(0);
+  const { reviews, isLoading, error } = useReviews();
   
-  // Sample combined reviews from both platforms
-  const combinedReviews = [
-    {
-      platform: 'google',
-      text: "BuzzArketing's creative approach to our marketing challenges was exceptional. Highly recommended!",
-      author: "Robert K.",
-      rating: 5
-    },
-    {
-      platform: 'trustpilot',
-      text: "Great team that delivers high-quality work consistently. They helped our brand grow significantly.",
-      author: "Lisa M.",
-      rating: 5
-    },
-    {
-      platform: 'google',
-      text: "Professional service with outstanding results. They truly understand brand development.",
-      author: "James W.",
-      rating: 4
-    }
-  ];
-
   useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveReviewIndex((prev) => (prev + 1) % combinedReviews.length);
-    }, 5000);
-    
-    return () => clearInterval(timer);
-  }, [combinedReviews.length]);
+    if (reviews.length > 0) {
+      const timer = setInterval(() => {
+        setActiveReviewIndex((prev) => (prev + 1) % reviews.length);
+      }, 5000);
+      
+      return () => clearInterval(timer);
+    }
+  }, [reviews.length]);
 
   const renderStars = (rating) => {
     const stars = [];
@@ -40,7 +22,7 @@ const ExternalReviewsDisplay = () => {
         <svg 
           key={i} 
           className={`w-3 h-3 ${i < rating ? 
-            combinedReviews[activeReviewIndex].platform === 'trustpilot' ? 'text-green-500' : 'text-yellow-500' 
+            reviews[activeReviewIndex]?.platform === 'trustpilot' ? 'text-green-500' : 'text-yellow-500' 
             : 'text-gray-300'}`}
           fill="currentColor" 
           xmlns="http://www.w3.org/2000/svg" 
@@ -73,7 +55,45 @@ const ExternalReviewsDisplay = () => {
     return null;
   };
 
-  const activeReview = combinedReviews[activeReviewIndex];
+  if (isLoading) {
+    return (
+      <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
+        <h4 className="text-sm font-medium mb-4">Featured Review</h4>
+        <div className="animate-pulse">
+          <div className="flex items-center justify-between mb-2">
+            <div className="bg-gray-200 h-4 w-24 rounded"></div>
+            <div className="flex space-x-1">
+              {[1, 2, 3, 4, 5].map(i => (
+                <div key={i} className="bg-gray-200 h-3 w-3 rounded-full"></div>
+              ))}
+            </div>
+          </div>
+          <div className="bg-gray-200 h-16 w-full rounded mb-2"></div>
+          <div className="bg-gray-200 h-3 w-20 rounded ml-auto"></div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
+        <h4 className="text-sm font-medium mb-2">Featured Review</h4>
+        <p className="text-sm text-red-500">Unable to load reviews. Please try again later.</p>
+      </div>
+    );
+  }
+
+  if (reviews.length === 0) {
+    return (
+      <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
+        <h4 className="text-sm font-medium mb-2">Featured Review</h4>
+        <p className="text-sm text-gray-600">No reviews available yet.</p>
+      </div>
+    );
+  }
+
+  const activeReview = reviews[activeReviewIndex];
 
   return (
     <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
@@ -98,13 +118,13 @@ const ExternalReviewsDisplay = () => {
       </div>
       
       <div className="flex justify-center mt-3 gap-1">
-        {combinedReviews.map((_, index) => (
+        {reviews.map((_, index) => (
           <button
             key={index}
             onClick={() => setActiveReviewIndex(index)}
-            className={`w-2 h-2 rounded-full transition-colors ${
+            className={`w-2 h-2 rounded-full transition-colors cursor-pointer ${
               index === activeReviewIndex ? 
-                combinedReviews[activeReviewIndex].platform === 'trustpilot' ? 'bg-green-500' : 'bg-blue-500' 
+                reviews[activeReviewIndex].platform === 'trustpilot' ? 'bg-green-500' : 'bg-blue-500' 
                 : 'bg-gray-300'
             }`}
             aria-label={`Go to review ${index + 1}`}

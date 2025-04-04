@@ -1,33 +1,38 @@
 # Buzzarketing
 
-Buzzarketing is a strategic, project marketing agency dedicated to helping businesses and charities build powerful, lasting brand identities.
+Buzzarketing - Building Brands That Create Buzz
 
 ## Features
 
-- Responsive design for all devices
-- Modern design with yellow, black, and white color scheme
-- Information about services, company philosophy, and contact details
-- Integrated contact form
-- Links to reviews on Trustpilot and Google Maps
-
-## Pages
-
-- Home - Overview of Buzzarketing and its services
-- About - Company story and philosophy
-- Services - Detailed information about the services offered
-- Contact - Contact form and additional contact information
+- Responsive marketing website for a digital marketing agency
+- Real customer testimonials from Google and Trustpilot
+- Contact form for potential clients
+- Detailed service offerings
+- About us section
 
 ## Development
 
-This project was built using:
+To run the project locally:
 
-- React.js
-- React Router
-- Tailwind CSS
-- Vite
+```bash
+npm install
+npm run dev
+```
 
-## Running the Project
+To build for production:
 
-1. Install dependencies: `npm install`
-2. Run development server: `npm run dev`
-3. Build for production: `npm run build`
+```bash
+npm run build
+```
+
+## Integration with Review Platforms
+
+The app fetches real reviews from Google Places API and Trustpilot API to display authentic customer feedback. This ensures visitors see genuine testimonials rather than placeholder content.
+
+## Environment Variables
+
+This application requires specific environment variables to be set for accessing the Google Places API and Trustpilot API. These should be added to your project's environment variables in your hosting platform (like Vercel).
+
+## Deployment
+
+This project is built to be deployed on Vercel.
